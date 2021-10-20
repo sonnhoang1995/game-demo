@@ -1,0 +1,8 @@
+.text {
+    color: pink;
+    &:hover {
+        font-weight: bold;
+        cursor: pointer;
+        color: lightsalmon;
+    }
+}

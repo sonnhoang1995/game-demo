@@ -1,0 +1,15 @@
+.button {
+    height: 50px;
+    width: 150px;
+    border-radius: 25px;
+    background-color: aquamarine;
+    color: coral;
+    font-weight: bold;
+}
+
+.button:hover {
+    cursor: pointer;
+}
+
+.text{color:pink}.text:hover{font-weight:bold;cursor:pointer;color:lightsalmon}
+
