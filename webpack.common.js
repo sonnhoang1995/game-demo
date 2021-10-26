@@ -10,22 +10,22 @@ module.exports = {
             {
                 test: /\.ts$/,
                 use: "ts-loader",
-                include: [path.resolve(__dirname, "src")],
-            },
-        ],
+                include: [path.resolve(__dirname, "src")]
+            }
+        ]
     },
     plugins: [
         new HtmlWebpackPlugin({
             hash: true,
             title: "Production",
-            template: "./src/index.html",
-        }),
+            template: "./src/index.html"
+        })
     ],
     resolve: {
-        extensions: ["tsx", ".ts", ".js", ".css", ".scss", ".sass"],
+        extensions: ["tsx", ".ts", ".js", ".css", ".scss", ".sass"]
     },
     output: {
         filename: "[name].bundle.js",
-        path: path.resolve(__dirname, "public"),
-    },
+        path: path.resolve(__dirname, "public")
+    }
 };

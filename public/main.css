@@ -13,3 +13,5 @@
 
 .text{color:pink}.text:hover{font-weight:bold;cursor:pointer;color:lightsalmon}
 
+.object{width:50px;height:50px;background-color:black}
+
