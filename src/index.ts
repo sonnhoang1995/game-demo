@@ -1,11 +1,10 @@
 import "./styles/button";
 import "./styles/text";
 import "./styles/object";
-import { GameLoop } from "./gameLoop";
+import { GameWorld } from "./GameWorld";
 
 const myButton = document.getElementById("my-button")!;
-let gameLoop = new GameLoop();
+let gameWorld = new GameWorld();
+gameWorld.initialize();
 
-myButton.addEventListener("click", () => {
-    gameLoop.initialize();
-});
+myButton.addEventListener("click", () => {});
