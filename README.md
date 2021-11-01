@@ -1,4 +1,4 @@
-# webpack-repository
+# game-demo
 
 `npm run serve` to run project at http://localhost:8080
 
