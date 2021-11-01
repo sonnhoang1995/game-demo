@@ -7,4 +7,3 @@ const myButton = document.getElementById("my-button")!;
 let gameWorld = new GameWorld();
 gameWorld.initialize();
 
-myButton.addEventListener("click", () => {});
