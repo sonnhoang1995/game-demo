@@ -1,7 +1,18 @@
 import { GameObject } from "./GameObject";
 import { IGameObject } from "./type";
+import RunningSprite from "./assets/sprites/runningsprite.png";
+import JumpingSprite from "./assets/sprites/jumpingsprite.png";
+import SlidingSprite from "./assets/sprites/slidingsprite.png";
 
 export class Player extends GameObject {
+    static numColumns: number = 3;
+    static numRows: number = 2;
+    static frameWidth: number = 0;
+    static frameHeight: number = 0;
+    static sprite: HTMLImageElement;
+    currentFrame: number = 0;
+    radius: number = 50;
+    safeFrame: number = 0;
     height: number;
     width: number;
     isJumping: boolean;
@@ -10,13 +21,14 @@ export class Player extends GameObject {
     canDuck: boolean;
     constructor(iGameObject: IGameObject) {
         super(iGameObject);
-
-        this.height = 50;
-        this.width = 25;
+        
+        this.height = 75;
+        this.width = 50;
         this.isJumping = false;
         this.jumpLimit = 225;
         this.isDucking = false;
         this.canDuck = true;
+        this.loadImage();
     }
 
     update(elapsedTime: number) {
@@ -25,11 +37,13 @@ export class Player extends GameObject {
     }
 
     jump(elapsedTime: number) {
+        Player.sprite.src = RunningSprite;
         this.y = this.y > 350 ? 350 : this.y;
 
         if (this.isJumping) {
             this.y += this.vy * elapsedTime;
             this.canDuck = false;
+            Player.sprite.src = JumpingSprite;
         }
 
         if (this.y < this.jumpLimit) this.vy = -this.vy;
@@ -38,20 +52,54 @@ export class Player extends GameObject {
             this.isJumping = false;
             this.canDuck = true;
             this.vy = -this.vy;
+            Player.sprite.src = RunningSprite;
         }
     }
 
     duck() {
         if (this.isDucking && this.canDuck && !this.isJumping) {
-            this.height = 20;
-            this.y = 380;
-        } else {
+            Player.sprite.src = SlidingSprite;
             this.height = 50;
         }
     }
 
+    loadImage() {
+        if (!Player.sprite) {
+            Player.sprite = new Image();
+            Player.sprite.src = RunningSprite;
+            Player.sprite.onload = () => {
+                Player.frameWidth = Player.sprite.width / Player.numColumns;
+                Player.frameHeight = Player.sprite.height / Player.numRows;
+            };
+        }
+    }
+
     render() {
-        this.context.fillStyle = "black";
-        this.context.fillRect(this.x, this.y, this.width, this.height);
+        this.safeFrame++;
+        let maxFrame = 5;
+        if (this.currentFrame > maxFrame) {
+            this.currentFrame = 0;
+        }
+
+        if (this.safeFrame > 60) {
+            this.safeFrame = 0;
+        }
+
+        let column = this.currentFrame % Player.numColumns;
+        let row = Math.floor(this.currentFrame / Player.numColumns);
+
+        this.context.drawImage(
+            Player.sprite,
+            column * Player.frameWidth,
+            row * Player.frameHeight,
+            Player.frameWidth,
+            Player.frameHeight,
+            this.x - this.radius,
+            this.y - this.radius - this.radius * 0.4,
+            this.radius * 2,
+            this.radius * 2.42
+        );
+
+        if (this.safeFrame % 5 == 0) this.currentFrame++;
     }
 }

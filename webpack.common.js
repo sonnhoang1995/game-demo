@@ -1,7 +1,7 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require("path");
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
+const { extendDefaultPlugins } = require("svgo");
 
 module.exports = {
     entry: "./src/index.ts",
@@ -11,6 +11,10 @@ module.exports = {
                 test: /\.ts$/,
                 use: "ts-loader",
                 include: [path.resolve(__dirname, "src")]
+            },
+            {
+                test: /\.(png|svg|jpg|jpeg|gif)$/i,
+                type: "asset/resource"
             }
         ]
     },
@@ -19,6 +23,17 @@ module.exports = {
             hash: true,
             title: "Production",
             template: "./src/index.html"
+        }),
+        new ImageMinimizerPlugin({
+            minimizerOptions: {
+                // Lossless optimization with custom option
+                // Feel free to experiment with options for better result for you
+                plugins: [
+                    ["gifsicle", { interlaced: true }],
+                    ["jpegtran", { progressive: true }],
+                    ["optipng", { optimizationLevel: 5 }],                
+                ]
+            }
         })
     ],
     resolve: {
