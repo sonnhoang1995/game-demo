@@ -1,7 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
-const { extendDefaultPlugins } = require("svgo");
 
 module.exports = {
     entry: "./src/index.ts",
@@ -25,15 +24,15 @@ module.exports = {
             template: "./src/index.html"
         }),
         new ImageMinimizerPlugin({
+            deleteOriginalAssets: true,
             minimizerOptions: {
-                // Lossless optimization with custom option
-                // Feel free to experiment with options for better result for you
                 plugins: [
                     ["gifsicle", { interlaced: true }],
                     ["jpegtran", { progressive: true }],
-                    ["optipng", { optimizationLevel: 5 }],                
+                    ["optipng", { optimizationLevel: 5 }]
                 ]
-            }
+            },
+            loader: false
         })
     ],
     resolve: {
