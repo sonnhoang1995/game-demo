@@ -21,7 +21,7 @@ export class Player extends GameObject {
     canDuck: boolean;
     constructor(iGameObject: IGameObject) {
         super(iGameObject);
-        
+
         this.height = 75;
         this.width = 50;
         this.isJumping = false;
@@ -32,27 +32,27 @@ export class Player extends GameObject {
     }
 
     update(elapsedTime: number) {
+        Player.sprite.src = RunningSprite;
         this.jump(elapsedTime);
         this.duck();
     }
 
     jump(elapsedTime: number) {
-        Player.sprite.src = RunningSprite;
         this.y = this.y > 350 ? 350 : this.y;
 
         if (this.isJumping) {
+            Player.sprite.src = JumpingSprite;
             this.y += this.vy * elapsedTime;
             this.canDuck = false;
-            Player.sprite.src = JumpingSprite;
-        }
 
-        if (this.y < this.jumpLimit) this.vy = -this.vy;
+            if (this.y < this.jumpLimit) this.vy = -this.vy;
 
-        if (this.y > 350) {
-            this.isJumping = false;
-            this.canDuck = true;
-            this.vy = -this.vy;
-            Player.sprite.src = RunningSprite;
+            if (this.y > 350) {
+                this.isJumping = false;
+                this.canDuck = true;
+                this.vy = -this.vy;
+                Player.sprite.src = RunningSprite;
+            }
         }
     }
 
