@@ -10,8 +10,9 @@ export class Player extends GameObject {
     static frameWidth: number = 0;
     static frameHeight: number = 0;
     static sprite: HTMLImageElement;
-    jumpingSprite: string = '';
-    slidingSprite: string = '';
+    jumpingSprite: HTMLImageElement;
+    slidingSprite: HTMLImageElement;
+    runningSprite: HTMLImageElement;
     currentFrame: number = 0;
     radius: number = 50;
     safeFrame: number = 0;
@@ -30,13 +31,17 @@ export class Player extends GameObject {
         this.jumpLimit = 225;
         this.isDucking = false;
         this.canDuck = true;
-        this.jumpingSprite = JumpingSprite;
-        this.slidingSprite = SlidingSprite;
+        this.jumpingSprite = new Image();
+        this.jumpingSprite.src = JumpingSprite;
+        this.slidingSprite = new Image();
+        this.slidingSprite.src = SlidingSprite;
+        this.runningSprite = new Image();
+        this.runningSprite.src = RunningSprite;
         this.loadImage();
     }
 
     update(elapsedTime: number) {
-        Player.sprite.src = RunningSprite;
+        Player.sprite = this.runningSprite;
         this.jump(elapsedTime);
         this.duck();
     }
@@ -45,7 +50,7 @@ export class Player extends GameObject {
         this.y = this.y > 350 ? 350 : this.y;
 
         if (this.isJumping) {
-            Player.sprite.src = this.jumpingSprite;
+            Player.sprite = this.jumpingSprite;
             this.y += this.vy * elapsedTime;
             this.canDuck = false;
 
@@ -55,14 +60,14 @@ export class Player extends GameObject {
                 this.isJumping = false;
                 this.canDuck = true;
                 this.vy = -this.vy;
-                Player.sprite.src = RunningSprite;
+                Player.sprite = this.runningSprite;
             }
         }
     }
 
     duck() {
         if (this.isDucking && this.canDuck && !this.isJumping) {
-            Player.sprite.src = this.slidingSprite;
+            Player.sprite = this.slidingSprite;
             this.height = 50;
         }
     }
@@ -70,7 +75,7 @@ export class Player extends GameObject {
     loadImage() {
         if (!Player.sprite) {
             Player.sprite = new Image();
-            Player.sprite.src = RunningSprite;
+            Player.sprite = this.runningSprite;
             Player.sprite.onload = () => {
                 Player.frameWidth = Player.sprite.width / Player.numColumns;
                 Player.frameHeight = Player.sprite.height / Player.numRows;
