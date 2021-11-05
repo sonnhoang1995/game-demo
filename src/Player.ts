@@ -10,6 +10,8 @@ export class Player extends GameObject {
     static frameWidth: number = 0;
     static frameHeight: number = 0;
     static sprite: HTMLImageElement;
+    jumpingSprite: string = '';
+    slidingSprite: string = '';
     currentFrame: number = 0;
     radius: number = 50;
     safeFrame: number = 0;
@@ -28,6 +30,8 @@ export class Player extends GameObject {
         this.jumpLimit = 225;
         this.isDucking = false;
         this.canDuck = true;
+        this.jumpingSprite = JumpingSprite;
+        this.slidingSprite = SlidingSprite;
         this.loadImage();
     }
 
@@ -41,7 +45,7 @@ export class Player extends GameObject {
         this.y = this.y > 350 ? 350 : this.y;
 
         if (this.isJumping) {
-            Player.sprite.src = JumpingSprite;
+            Player.sprite.src = this.jumpingSprite;
             this.y += this.vy * elapsedTime;
             this.canDuck = false;
 
@@ -58,7 +62,7 @@ export class Player extends GameObject {
 
     duck() {
         if (this.isDucking && this.canDuck && !this.isJumping) {
-            Player.sprite.src = SlidingSprite;
+            Player.sprite.src = this.slidingSprite;
             this.height = 50;
         }
     }
