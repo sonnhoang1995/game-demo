@@ -43,7 +43,7 @@ export class Renderer {
         );
         background.context.drawImage(
             background.image,
-            background.x - background.width,
+            background.x - background.imageWidth,
             background.y
         );
     }

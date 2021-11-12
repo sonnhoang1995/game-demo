@@ -14,7 +14,7 @@ export class Background extends ImageObject {
     }
 
     update() {
-        if (this.background.x < 0) this.background.x = this.background.width;
+        if (this.background.x < 0) this.background.x = this.background.imageWidth;
         this.background.x -= this.background.speed;
     }
 

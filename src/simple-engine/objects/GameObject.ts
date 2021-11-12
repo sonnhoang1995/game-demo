@@ -2,6 +2,8 @@ import { IGameObject } from "../utils/type";
 import { ImageObject } from "./ImageObject";
 
 export class GameObject extends ImageObject implements IGameObject {
+    width: number;
+    height: number;
     vx: number;
     vy: number;
 

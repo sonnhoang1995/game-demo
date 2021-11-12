@@ -4,20 +4,21 @@ export class ImageObject implements IImageObject {
     context: CanvasRenderingContext2D;
     x: number;
     y: number;
-    width: number;
-    height: number;
+    imageWidth: number;
+    imageHeight: number;
     image: HTMLImageElement;
     constructor(imageObject: IImageObject) {
         this.context = imageObject.context;
         this.x = imageObject.x;
         this.y = imageObject.y;
-        this.width = imageObject.width;
-        this.height = imageObject.height;
+        this.imageWidth = imageObject.imageWidth;
+        this.imageHeight = imageObject.imageHeight;
         this.image = imageObject.image;
 
         imageObject.image.onload = () => {
-            this.width = imageObject.width;
-            this.height = imageObject.height;
+            this.imageWidth = imageObject.imageWidth;
+            this.imageHeight = imageObject.imageHeight;
+            console.log(this.imageHeight, this.imageWidth)
         }
     }
 }

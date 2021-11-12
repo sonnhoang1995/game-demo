@@ -35,8 +35,8 @@ export class GameWorld {
             context: this.context,
             x: 0,
             y: -300,
-            width: 1000,
-            height: 400,
+            imageWidth: 1000,
+            imageHeight: 400,
             speed: 2,
             image: ImageLoader.getImage("backgroundimage")!.src
         });
@@ -58,6 +58,8 @@ export class GameWorld {
                 y: 350,
                 vx: 0,
                 vy: -200,
+                imageHeight: 966, // need improve
+                imageWidth: 1647, // need improve
                 height: 75,
                 width: 50,
                 image: ImageLoader.getImage("runningsprite")!.src
@@ -112,8 +114,8 @@ export class GameWorld {
             context: this.context,
             x: 0,
             y: -300,
-            width: 1000,
-            height: 400,
+            imageWidth: 1000,
+            imageHeight: 400,
             speed: 2,
             image: ImageLoader.getImage("backgroundimage")!.src
         });
@@ -124,6 +126,8 @@ export class GameWorld {
                 y: 350,
                 vx: 0,
                 vy: -200,
+                imageHeight: 966,
+                imageWidth: 1647,
                 height: 75,
                 width: 50,
                 image: ImageLoader.getImage("runningsprite")!.src
@@ -163,6 +167,8 @@ export class GameWorld {
             y: 350,
             vx: -300,
             vy: 0,
+            imageHeight: 1042,
+            imageWidth: 1296,
             height: 75,
             width: 50,
             image: ImageLoader.getImage("zombiesprite")!.src

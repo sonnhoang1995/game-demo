@@ -5,12 +5,14 @@ interface IBaseObject {
 }
 
 export interface IImageObject extends IBaseObject {
-    width: number;
-    height: number;
+    imageWidth: number;
+    imageHeight: number;
     image: HTMLImageElement;
 }
 
 export interface IGameObject extends IBaseObject, IImageObject {
+    width: number;
+    height: number
     vx: number;
     vy: number;
 }
