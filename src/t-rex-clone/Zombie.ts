@@ -1,57 +1,44 @@
-import { IGameObject } from "../simple-engine/utils/type";
-import ZombieSprite from "../assets/sprites/zombiesprite.png";
-import { IAnimationObjectRenderer } from "../simple-engine/utils/type";
-import { ImageLoader } from "../simple-engine/image-loader/ImageLoader";
-import { ImageRenderer } from "../simple-engine/renderer/ImageRenderer";
+import { GameObject } from "../simple-engine/objects/GameObject";
+import { Renderer } from "../simple-engine/renderer/Renderer";
+import { IGameObject, ISpriteSheetObject } from "../simple-engine/utils/type";
 
-export class Zombie implements IGameObject {
-    height: number;
-    width: number;
-    animationObject: IAnimationObjectRenderer;
-    renderer: ImageRenderer;
-    canvas: HTMLCanvasElement;
-    context: CanvasRenderingContext2D;
-
-    x: number;
-    y: number;
+export class Zombie extends GameObject {
+    renderer: Renderer;
+    spriteSheetObject!: ISpriteSheetObject;
     vx: number;
     vy: number;
-    constructor(gameObject: IGameObject, canvas: HTMLCanvasElement) {
-        this.canvas = canvas;
-        this.context = gameObject.context;
-        this.x = gameObject.x;
-        this.y = gameObject.y;
+    spriteSheetNumColumns: number = 3;
+    spriteSheetNumRows: number = 2;
+    constructor(gameObject: IGameObject) {
+        super(gameObject);
+
         this.vx = gameObject.vx;
         this.vy = gameObject.vy;
-        this.height = 75;
-        this.width = 50;
-        this.animationObject = {
+
+        this.spriteSheetObject = {
+            context: this.context,
             x: this.x,
             y: this.y,
-            radius: 50
+            width: this.image.width,
+            height: this.image.height,
+            frameWidth: this.image.width / this.spriteSheetNumColumns,
+            frameHeight: this.image.height / this.spriteSheetNumRows,
+            numColumns: this.spriteSheetNumColumns,
+            numRows: this.spriteSheetNumRows,
+            radius: 50,
+            image: this.image
         };
-        const imageLoader = new ImageLoader();
-        const spriteSheet = imageLoader.load([
-            { name: "zombiesprite", url: ZombieSprite }
-        ]).src;
-        this.renderer = new ImageRenderer(
-            this.canvas,
-            this.context,
-            spriteSheet,
-            this.x,
-            this.y,
-            3,
-            2,
-            50
-        );
+       
+        this.renderer = new Renderer();
     }
 
     update(elapsedTime: number) {
-        this.renderer.x += this.vx * elapsedTime;
-        this.x += this.vx * elapsedTime;
+        if (this.spriteSheetObject)
+            this.spriteSheetObject.x += this.vx * elapsedTime;
     }
 
     render() {
-        this.renderer.animationObjectRenderer();
+        if (this.spriteSheetObject)
+            this.renderer.spriteSheetRenderer(this.spriteSheetObject);
     }
 }

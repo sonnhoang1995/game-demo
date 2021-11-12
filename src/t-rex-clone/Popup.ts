@@ -1,16 +1,16 @@
-import { ButtonRenderer } from "../simple-engine/renderer/ButtonRenderer";
-import { IRectangleObject } from "../simple-engine/utils/type";
+import { Renderer } from "../simple-engine/renderer/Renderer";
+import { IButtonObject } from "../simple-engine/utils/type";
 
 export class Popup {
-    renderer: ButtonRenderer;
-    rectangleObject: IRectangleObject;
+    renderer: Renderer;
+    buttonObject: IButtonObject;
 
-    constructor(rectangleObject: IRectangleObject) {
-        this.rectangleObject = rectangleObject;
-        this.renderer = new ButtonRenderer(this.rectangleObject);
+    constructor(buttonObject: IButtonObject) {
+        this.buttonObject = buttonObject;
+        this.renderer = new Renderer();
     }
 
     render() {
-        this.renderer.rectangleRenderer();
+        this.renderer.buttonRenderer(this.buttonObject);
     }
 }

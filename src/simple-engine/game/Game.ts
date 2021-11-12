@@ -1,4 +1,4 @@
-export class GameLoop {
+export class Game {
     elapsedTime: number = 0;
     startTime: DOMHighResTimeStamp = 0;
     fps: number = 0;
@@ -30,7 +30,7 @@ export class GameLoop {
     }
 
     loop(timestamp: DOMHighResTimeStamp) {
-        if(this.isGameOver) {
+        if (this.isGameOver) {
             this.handleUserInput = () => {};
             this.renderCallbacks = [];
             this.updateCallbacks = [];
@@ -46,9 +46,9 @@ export class GameLoop {
         this.gameLogic();
 
         this.handleUserInput();
-        
+
         this.handleUpdate(this.elapsedTime);
-        
+
         this.handleRender();
 
         this.rAF_id = requestAnimationFrame(this.loop.bind(this));

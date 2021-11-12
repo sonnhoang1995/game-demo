@@ -1,31 +1,21 @@
-import BackgroundImage from "../assets/images/backgroundimage.png";
-import { ImageLoader } from "../simple-engine/image-loader/ImageLoader";
-import { ImageRenderer } from "../simple-engine/renderer/ImageRenderer";
-import { IBackgroundRenderer } from "../simple-engine/utils/type";
+import { ImageObject } from "../simple-engine/objects/ImageObject";
+import { Renderer } from "../simple-engine/renderer/Renderer";
+import { IBackgroundObject } from "../simple-engine/utils/type";
 
-export class Background {
+export class Background extends ImageObject {
     static sprite: HTMLImageElement;
-    context: CanvasRenderingContext2D;
-    canvas: HTMLCanvasElement;
+    background: IBackgroundObject;
+    renderer: Renderer;
 
-    background: IBackgroundRenderer;
-    renderer: ImageRenderer;
+    constructor(background: IBackgroundObject) {
+        super(background);
+        this.renderer = new Renderer();
+        this.background = background;
+    }
 
-    constructor(context: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
-        this.canvas = canvas;
-        this.context = context;
-        this.background = { x: 0, y: -300, width: 1000, height: 400, speed: 2 };
-        const imageLoader = new ImageLoader();
-        const spriteSheet = imageLoader.load([
-            { name: "backgroundimage", url: BackgroundImage }
-        ]).src;
-        this.renderer = new ImageRenderer(
-            this.canvas,
-            this.context,
-            spriteSheet,
-            0,
-            -300
-        );
+    update() {
+        if (this.background.x < 0) this.background.x = this.background.width;
+        this.background.x -= this.background.speed;
     }
 
     render() {

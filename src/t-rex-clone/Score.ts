@@ -1,13 +1,15 @@
-import { TextRenderer } from "../simple-engine/renderer/TextRenderer";
+import { TextObject } from "../simple-engine/objects/TextObject";
+import { Renderer } from "../simple-engine/renderer/Renderer";
 import { ITextObject } from "../simple-engine/utils/type";
 
-export class Score {
-    renderer: TextRenderer;
+export class Score extends TextObject{
+    renderer: Renderer;
     textObject: ITextObject;
 
     constructor(textObject: ITextObject) {
+        super(textObject);
         this.textObject = textObject;
-        this.renderer = new TextRenderer(this.textObject);
+        this.renderer = new Renderer();
     }
 
     increaseScore() {
@@ -15,6 +17,6 @@ export class Score {
     }
 
     render() {
-        this.renderer.textRenderer();
+        this.renderer.textRenderer(this.textObject);
     }
 }
