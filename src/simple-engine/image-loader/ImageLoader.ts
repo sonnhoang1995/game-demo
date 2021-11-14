@@ -20,7 +20,13 @@ export class ImageLoader {
         });
     }
 
-    static getImage(imageName: string) {
-        return this.images.find((image) => image.name == imageName)
+    static getImage(imageName: string): ILoadedImage {
+        const foundImage = this.images.find((image) => image.name == imageName);
+        return foundImage
+            ? foundImage
+            : {
+                  name: "image not foud",
+                  src: new Image()
+              };
     }
 }

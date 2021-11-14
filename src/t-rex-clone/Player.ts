@@ -13,19 +13,15 @@ export class Player extends GameObject {
     spriteSheetObject: ISpriteSheetObject;
     spriteSheetNumRows: number = 2;
     spriteSheetNumColumns: number = 3;
-    userInput: () => void;
 
     constructor(
         iGameObject: IGameObject,
-        userInput: () => void
     ) {
         super(iGameObject);
 
-        this.userInput = userInput;
         this.isJumping = false;
         this.isDucking = false;
         this.canDuck = true;
-       
         this.spriteSheetObject = {
             context: this.context,
             x: this.x,

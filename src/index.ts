@@ -1,9 +1,12 @@
+import { Game } from "./simple-engine/game/Game";
 import "./styles/button";
-import "./styles/text";
 import "./styles/object";
-import { GameWorld } from "./t-rex-clone/GameWorld";
+import "./styles/text";
+import { GameOverScene } from "./t-rex-clone/GameOverScene";
+import { PlayScene } from "./t-rex-clone/PlayScene";
 
-const myButton = document.getElementById("my-button")!;
-let gameWorld = new GameWorld();
-gameWorld.game.initialize();
+new PlayScene();
+new GameOverScene();
+const game = new Game();
+game.initialize();
 

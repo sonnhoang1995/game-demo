@@ -14,11 +14,5 @@ export class ImageObject implements IImageObject {
         this.imageWidth = imageObject.imageWidth;
         this.imageHeight = imageObject.imageHeight;
         this.image = imageObject.image;
-
-        imageObject.image.onload = () => {
-            this.imageWidth = imageObject.imageWidth;
-            this.imageHeight = imageObject.imageHeight;
-            console.log(this.imageHeight, this.imageWidth)
-        }
     }
 }

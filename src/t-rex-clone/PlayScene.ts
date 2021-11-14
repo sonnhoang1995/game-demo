@@ -3,30 +3,31 @@ import JumpingSprite from "../assets/sprites/jumpingsprite.png";
 import RunningSprite from "../assets/sprites/runningsprite.png";
 import SlidingSprite from "../assets/sprites/slidingsprite.png";
 import ZombieSprite from "../assets/sprites/zombiesprite.png";
-import { Game } from "../simple-engine/game/Game";
 import { ImageLoader } from "../simple-engine/image-loader/ImageLoader";
 import { InputHandler } from "../simple-engine/input-handler/InputHandler";
+import { Scene } from "../simple-engine/scene/Scene";
 import { Background } from "./Background";
 import { Player } from "./Player";
-import { Popup } from "./Popup";
 import { Score } from "./Score";
 import { Zombie } from "./Zombie";
 
-export class GameWorld {
+export class PlayScene extends Scene {
     canvas: HTMLCanvasElement;
     context: CanvasRenderingContext2D;
     player: Player;
     background: Background;
     score: Score;
     enemySpawnRate: number = 90;
-    popup: Popup;
     inputHanlder: InputHandler;
-    game: Game;
     zombies: Zombie[] = [];
+    sceneName: string = "Play Scene";
+    scene: Scene = new Scene();
+    static isRestart: boolean = false;
 
     constructor() {
+        super();
         this.canvas = document.getElementById("my-canvas") as HTMLCanvasElement;
-        this.context = this.canvas.getContext("2d")!;
+        this.context = this.canvas.getContext("2d") as CanvasRenderingContext2D;
         this.canvas.tabIndex = 1;
         this.canvas.focus();
         this.inputHanlder = new InputHandler(this.canvas);
@@ -35,8 +36,8 @@ export class GameWorld {
             context: this.context,
             x: 0,
             y: -300,
-            imageWidth: 1000,
-            imageHeight: 400,
+            imageWidth: 1000, // need improvements
+            imageHeight: 400, // need improvements
             speed: 2,
             image: ImageLoader.getImage("backgroundimage")!.src
         });
@@ -51,49 +52,33 @@ export class GameWorld {
             align: "center",
             color: "black"
         });
-        this.player = new Player(
-            {
-                context: this.context,
-                x: 50,
-                y: 350,
-                vx: 0,
-                vy: -200,
-                imageHeight: 966, // need improve
-                imageWidth: 1647, // need improve
-                height: 75,
-                width: 50,
-                image: ImageLoader.getImage("runningsprite")!.src
-            },
-            this.getUserInput.bind(this)
-        );
-        this.popup = new Popup({
+        this.player = new Player({
             context: this.context,
-            x: 250,
-            y: 150,
-            width: 250,
-            height: 100,
-            text: "Restart",
-            textColor: "#000000",
-            backgroundColor: "rgba(225,225,225,0.5)",
-            borderWidth: 2,
-            borderColor: "#000000",
-            fontStyle: "Kremlin Pro Web",
-            fontSize: 24,
+            x: 50,
+            y: 350,
+            vx: 0,
+            vy: -200,
+            imageHeight: 966, // need improvements
+            imageWidth: 1647, // need improvements
+            height: 75,
+            width: 50,
+            image: ImageLoader.getImage("runningsprite")!.src
         });
-        this.game = new Game(
-            this.canvas,
-            this.player.userInput,
+        this.scene.createScenes(
+            this.sceneName,
+            [
+                this.player.update.bind(this.player),
+                this.background.update.bind(this.background)
+            ],
             [
                 this.background.render.bind(this.background),
                 this.player.render.bind(this.player),
                 this.score.render.bind(this.score)
             ],
-            [
-                this.player.update.bind(this.player),
-                this.background.update.bind(this.background)
-            ],
+            this.getUserInput.bind(this),
             this.gameLogic.bind(this)
         );
+        this.scene.changeScene("Play Scene");
     }
 
     initialize() {
@@ -114,49 +99,44 @@ export class GameWorld {
             context: this.context,
             x: 0,
             y: -300,
-            imageWidth: 1000,
-            imageHeight: 400,
+            imageWidth: 1000, // need improvements
+            imageHeight: 400, // need improvements
             speed: 2,
-            image: ImageLoader.getImage("backgroundimage")!.src
+            image: ImageLoader.getImage("backgroundimage").src
         });
-        this.player = new Player(
-            {
-                context: this.context,
-                x: 50,
-                y: 350,
-                vx: 0,
-                vy: -200,
-                imageHeight: 966,
-                imageWidth: 1647,
-                height: 75,
-                width: 50,
-                image: ImageLoader.getImage("runningsprite")!.src
-            },
-            this.getUserInput.bind(this)
-        );
-        this.game.handleUserInput = this.player.userInput.bind(this.player);
-        this.game.renderCallbacks = [
+        this.player = new Player({
+            context: this.context,
+            x: 50,
+            y: 350,
+            vx: 0,
+            vy: -200,
+            imageHeight: 966, // need improvements
+            imageWidth: 1647, // need improvements
+            height: 75,
+            width: 50,
+            image: ImageLoader.getImage("runningsprite").src
+        });
+        Scene.currentScene.updateCallbacks = [
+            this.player.update.bind(this.player),
+            this.background.update.bind(this.background)
+        ];
+        Scene.currentScene.renderCallbacks = [
             this.background.render.bind(this.background),
             this.player.render.bind(this.player),
             this.score.render.bind(this.score)
         ];
-        this.game.updateCallbacks = [
-            this.player.update.bind(this.player),
-            this.background.update.bind(this.background)
-        ];
-        this.game.gameLogic = this.gameLogic.bind(this);
-        this.game.isGameOver = false;
-        this.game.initialize();
     }
 
     gameLogic() {
+        if (PlayScene.isRestart) {
+            this.initialize();
+            PlayScene.isRestart = false;
+        }
         this.spawnEnemy();
         this.enemySpawnRate++;
         this.checkScore();
         if (this.detectCollision()) {
-            cancelAnimationFrame(this.game.rAF_id);
-            this.game.renderCallbacks.push(this.popup.render.bind(this.popup));
-            this.game.isGameOver = true;
+            this.scene.changeScene("Game Over Scene");
         }
     }
 
@@ -167,15 +147,19 @@ export class GameWorld {
             y: 350,
             vx: -300,
             vy: 0,
-            imageHeight: 1042,
-            imageWidth: 1296,
+            imageHeight: 1042, // need improvements
+            imageWidth: 1296, // need improvements
             height: 75,
             width: 50,
-            image: ImageLoader.getImage("zombiesprite")!.src
+            image: ImageLoader.getImage("zombiesprite").src
         });
         if (this.enemySpawnRate == 90) {
-            this.game.renderCallbacks.push(newZombie.render.bind(newZombie));
-            this.game.updateCallbacks.push(newZombie.update.bind(newZombie));
+            Scene.currentScene.renderCallbacks.push(
+                newZombie.render.bind(newZombie)
+            );
+            Scene.currentScene.updateCallbacks.push(
+                newZombie.update.bind(newZombie)
+            );
             this.zombies.push(newZombie);
             this.enemySpawnRate = 0;
         }
@@ -185,8 +169,8 @@ export class GameWorld {
         if (this.zombies[0] && this.zombies[0].spriteSheetObject.x < 0) {
             this.score.increaseScore();
             this.zombies.shift();
-            this.game.updateCallbacks.splice(2, 1);
-            this.game.renderCallbacks.splice(3, 1);
+            Scene.currentScene.updateCallbacks.splice(2, 1);
+            Scene.currentScene.renderCallbacks.splice(3, 1);
         }
     }
 
@@ -240,12 +224,6 @@ export class GameWorld {
         inputHandler.handleKeyupInput("ArrowDown", () => {
             this.player.isDucking = false;
         });
-        inputHandler.handleClickInput(
-            { x: 250, y: 150, width: 250, height: 100 },
-            () => {
-                if (this.detectCollision()) this.initialize();
-            }
-        );
     }
 
     preloadImage() {
