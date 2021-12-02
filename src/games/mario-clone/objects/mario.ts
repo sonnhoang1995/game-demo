@@ -274,9 +274,6 @@ export class Mario extends Phaser.GameObjects.Sprite {
             this.body.checkCollision.down = false;
             this.body.checkCollision.left = false;
             this.body.checkCollision.right = false;
-
-            this.currentScene.registry.values.lives -= 1;
-            this.currentScene.events.emit("livesChanged");
         }
     }
 }
