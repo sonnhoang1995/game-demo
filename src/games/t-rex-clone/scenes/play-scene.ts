@@ -1,6 +1,6 @@
-import { Background } from "./Background";
-import { Player } from "./Player";
-import { Zombie } from "./Zombie";
+import { Background } from "../objects/background";
+import { Player } from "../objects/player";
+import { Zombie } from "../objects/zombie";
 
 export class PlayScene extends Phaser.Scene {
     background?: Background;

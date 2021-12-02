@@ -1,4 +1,3 @@
-
 export class Background extends Phaser.GameObjects.TileSprite {
     constructor(
         scene: Phaser.Scene,

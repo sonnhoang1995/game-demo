@@ -1,12 +1,12 @@
 import Phaser from "phaser";
-import BackgroundImage from "../assets/images/backgroundimage.png";
-import GameMusic from "../assets/sounds/gamemusic.mp3";
-import GameOverMusic from "../assets/sounds/gameover.wav";
-import JumpSound from "../assets/sounds/jump.wav";
-import JumpingSprite from "../assets/sprites/jumpingsprite.png";
-import RunningSprite from "../assets/sprites/runningsprite.png";
-import SlidingSprite from "../assets/sprites/slidingsprite.png";
-import ZombieSprite from "../assets/sprites/zombiesprite.png";
+import BackgroundImage from "../../../assets/images/t-rex-clone/backgroundimage.png";
+import GameMusic from "../../../assets/sounds/gamemusic.mp3";
+import GameOverMusic from "../../../assets/sounds/gameover.wav";
+import JumpSound from "../../../assets/sounds/jump.wav";
+import JumpingSprite from "../../../assets/sprites/t-rex-clone/jumpingsprite.png";
+import RunningSprite from "../../../assets/sprites/t-rex-clone/runningsprite.png";
+import SlidingSprite from "../../../assets/sprites/t-rex-clone/slidingsprite.png";
+import ZombieSprite from "../../../assets/sprites/t-rex-clone/zombiesprite.png";
 
 export class LoadingScene extends Phaser.Scene {
     constructor() {
@@ -57,7 +57,7 @@ export class LoadingScene extends Phaser.Scene {
 
         this.load.image("BackgroundImage", BackgroundImage);
         this.load.audio("GameMusic", GameMusic);
-        this.load.audio("GameOverMusic", GameOverMusic)
+        this.load.audio("GameOverMusic", GameOverMusic);
         this.load.audio("JumpSound", JumpSound);
         this.load.on("progress", function (value: number) {
             progressBar.clear();

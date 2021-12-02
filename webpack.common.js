@@ -16,8 +16,13 @@ module.exports = {
                 type: "asset/resource"
             },
             {
-                test: /\.(mp3|wav)$/i,
-                use: "file-loader",
+                test: /\.(mp3|wav|fnt)$/i,
+                use: "file-loader"
+            },
+            {
+                test: require.resolve("Phaser"),
+                loader: "expose-loader",
+                options: { exposes: { globalName: "Phaser", override: true } }
             }
         ]
     },
