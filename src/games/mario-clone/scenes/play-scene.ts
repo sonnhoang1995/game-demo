@@ -113,8 +113,7 @@ export class PlayScene extends Phaser.Scene {
         this.physics.add.overlap(
             this.player,
             this.enemies,
-            () => {},
-            // this.handlePlayerEnemyOverlap as ArcadePhysicsCallback,
+            this.handlePlayerEnemyOverlap as ArcadePhysicsCallback,
             undefined,
             this
         );

@@ -110,6 +110,8 @@ export class Mario extends Phaser.GameObjects.Sprite {
             }
         } else {
             if (this.y > this.currentScene.sys.canvas.height) {
+                this.currentScene.registry.values.lives -= 1;
+                this.currentScene.events.emit("livesChanged");
                 this.currentScene.scene.restart();
             }
         }
