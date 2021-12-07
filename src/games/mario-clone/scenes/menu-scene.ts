@@ -19,14 +19,14 @@ export class MenuScene extends Phaser.Scene {
     }
 
     create(): void {
-        this.add.image(0, 0, "title").setOrigin(0, 0);
+        this.add.image(56, 0, "title").setOrigin(0, 0);
 
         this.bitmapTexts.push(
             this.add.bitmapText(
-                this.sys.canvas.width / 2 - 22,
+                this.sys.canvas.width / 4,
                 105,
                 "font",
-                "START",
+                "PRESS S TO START",
                 8
             )
         );

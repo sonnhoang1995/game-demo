@@ -39,6 +39,7 @@ export class PlayScene extends Phaser.Scene {
 
         // create our tilemap from Tiled JSON
         this.map = this.make.tilemap({ key: this.registry.get("level") });
+        console.log(this.map)
         // add our tileset and layers to our tilemap
         this.tileset = this.map.addTilesetImage("tiles");
         this.backgroundLayer = this.map.createLayer(
@@ -176,6 +177,7 @@ export class PlayScene extends Phaser.Scene {
 
     private loadObjectsFromTilemap(): void {
         // get the object layer in the tilemap named 'objects'
+        console.log(this.map.getObjectLayer("objects").objects)
         const objects = this.map.getObjectLayer("objects").objects as any[];
         objects.forEach((object) => {
             if (object.type === "portal") {
@@ -433,6 +435,7 @@ export class PlayScene extends Phaser.Scene {
             this.registry.values.time = 400;
 
             this.registry.set("level", _portal.name);
+            console.log(_portal.getPortalDestination())
             this.registry.set("spawn", {
                 x: _portal.getPortalDestination().x,
                 y: _portal.getPortalDestination().y,

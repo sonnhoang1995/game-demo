@@ -42,7 +42,7 @@ export class Enemy extends Phaser.GameObjects.Sprite {
 
         // physics
         this.currentScene.physics.world.enable(this);
-        this.body.setSize(8, 8);
+        this.body.setSize(16, 16);
     }
 
     protected showAndAddScore(): void {

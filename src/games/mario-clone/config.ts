@@ -8,9 +8,9 @@ export const MarioGameConfig: Phaser.Types.Core.GameConfig = {
     title: "Super Mario Land",
     url: "https://github.com/digitsensitive/phaser3-typescript",
     version: "2.0",
-    width: 160,
+    width: 288,
     height: 144,
-    zoom: 5,
+    zoom: 4,
     type: Phaser.AUTO,
     parent: "game",
     scene: [LoadingScene, HUDScene, MenuScene, PlayScene],
@@ -28,5 +28,5 @@ export const MarioGameConfig: Phaser.Types.Core.GameConfig = {
         }
     },
     backgroundColor: "#f8f8f8",
-    render: { pixelArt: true, antialias: false }
+    // render: { antialias: false }
 };

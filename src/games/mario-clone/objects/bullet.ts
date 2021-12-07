@@ -13,7 +13,7 @@ export class Bullet extends Phaser.GameObjects.Sprite {
     protected currentScene: Phaser.Scene;
     protected isActivated: boolean = false;
     protected speed!: number;
-    private bulletTime: number = 30;
+    private bulletTime: number = 45;
 
     constructor(aParams: ISpriteConstructor, speed: number) {
         super(

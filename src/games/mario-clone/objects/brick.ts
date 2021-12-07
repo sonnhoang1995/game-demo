@@ -37,7 +37,7 @@ export class Brick extends Phaser.GameObjects.Sprite {
 
         // physics
         this.currentScene.physics.world.enable(this);
-        this.body.setSize(8, 8);
+        this.body.setSize(16, 16);
         this.body.setAllowGravity(false);
         this.body.setImmovable(true);
     }
@@ -47,12 +47,20 @@ export class Brick extends Phaser.GameObjects.Sprite {
             // something touches the downside of the brick: probably mario?
             for (let i = -2; i < 2; i++) {
                 // create smaller bricks
-                let brick = this.currentScene.add
-                    .sprite(this.x, this.y, "brick")
+                let randomX =
+                    Math.random() < 0.5
+                        ? -(Math.floor(Math.random() * 9) + 1)
+                        : Math.floor(Math.random() * 9) + 1;
+                let randomY =
+                    Math.random() < 0.5
+                        ? -(Math.floor(Math.random() * 9) + 1)
+                        : Math.floor(Math.random() * 9) + 1;
+                let brick1 = this.currentScene.add
+                    .sprite(this.x + randomX, this.y + randomY, "brick")
                     .setOrigin(0, 0)
-                    .setDisplaySize(4, 4);
+                    .setDisplaySize(8, 8);
 
-                this.currentScene.physics.world.enable(brick);
+                this.currentScene.physics.world.enable(brick1);
 
                 //brick.body.setVelocity(40 * i, -40 * i);
                 //brick.body.setSize(4, 4);

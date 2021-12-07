@@ -81,17 +81,21 @@ export class LoadingScene extends Phaser.Scene {
         );
         this.load.bitmapFont("font", MarioFontImage, MarioFont);
 
+        // this.load.tilemapTiledJSON(
+        //     "level1",
+        //     require("../assets/maps/level1.json")
+        // );
+        // this.load.tilemapTiledJSON(
+        //     "level1Room1",
+        //     require("../assets/maps/level1Room1.json")
+        // );
+        // this.load.tilemapTiledJSON(
+        //     "level1Room2",
+        //     require("../assets/maps/level1Room2.json")
+        // );
         this.load.tilemapTiledJSON(
             "level1",
             require("../assets/maps/level1.json")
-        );
-        this.load.tilemapTiledJSON(
-            "level1Room1",
-            require("../assets/maps/level1Room1.json")
-        );
-        this.load.tilemapTiledJSON(
-            "level1Room2",
-            require("../assets/maps/level1Room2.json")
         );
         this.load.tilemapTiledJSON(
             "level2",
@@ -105,28 +109,28 @@ export class LoadingScene extends Phaser.Scene {
         this.load.image("tiles", TilesImage);
 
         this.load.spritesheet("mario", MarioSpritesheet, {
+            frameWidth: 18,
+            frameHeight: 32
+        });
+        this.load.spritesheet("box", BoxSpritesheet, {
             frameWidth: 16,
             frameHeight: 16
         });
-        this.load.spritesheet("box", BoxSpritesheet, {
-            frameWidth: 8,
-            frameHeight: 8
-        });
         this.load.spritesheet("brick", BrickSpritesheet, {
-            frameWidth: 8,
-            frameHeight: 8
+            frameWidth: 16,
+            frameHeight: 16
         });
         this.load.spritesheet("rotatingCoin", RotatingCoinSpritesheet, {
-            frameWidth: 8,
-            frameHeight: 8
+            frameWidth: 16,
+            frameHeight: 16
         });
         this.load.spritesheet("coin", CoinSpritesheet, {
-            frameWidth: 8,
-            frameHeight: 8
+            frameWidth: 16,
+            frameHeight: 16
         });
         this.load.spritesheet("goomba", GoombaSpritesheet, {
-            frameWidth: 8,
-            frameHeight: 8
+            frameWidth: 16,
+            frameHeight: 16
         });
         this.load.spritesheet("bullet", BulletSpriteSheet, {
             frameWidth: 8,
@@ -149,8 +153,8 @@ export class LoadingScene extends Phaser.Scene {
             frameHeight: 8
         });
         this.load.spritesheet("mushroom", MushroomSpritesheet, {
-            frameWidth: 8,
-            frameHeight: 8
+            frameWidth: 16,
+            frameHeight: 16
         });
         this.load.spritesheet("star", StarSpritesheet, {
             frameWidth: 8,
