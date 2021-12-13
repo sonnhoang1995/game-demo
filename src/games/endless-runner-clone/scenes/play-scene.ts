@@ -1,3 +1,4 @@
+import Phaser from "phaser";
 import { CONST } from "../const/const";
 
 export class PlayScene extends Phaser.Scene {

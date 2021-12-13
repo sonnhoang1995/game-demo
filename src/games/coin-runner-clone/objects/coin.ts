@@ -10,7 +10,9 @@ import Phaser from "phaser";
 export class Coin extends Phaser.GameObjects.Image {
     private centerOfScreen?: number;
     private changePositionTimer?: Phaser.Time.TimerEvent | null;
-    private lastPosition?: string;
+    private isChangePosition: boolean = false;
+    private tween?: Phaser.Tweens.Tween;
+    private particles?: Phaser.GameObjects.Particles.ParticleEmitter;
 
     constructor(aParams: IImageConstructor) {
         super(aParams.scene, aParams.x, aParams.y, aParams.texture);
@@ -18,6 +20,8 @@ export class Coin extends Phaser.GameObjects.Image {
         this.initVariables();
         this.initImage();
         this.initEvents();
+        this.setNewTween();
+        this.setNewParticles();
 
         this.scene.add.existing(this);
     }
@@ -25,7 +29,6 @@ export class Coin extends Phaser.GameObjects.Image {
     private initVariables(): void {
         this.centerOfScreen = this.scene.sys.canvas.width / 2;
         this.changePositionTimer = null;
-        this.setFieldSide();
     }
 
     private initImage(): void {
@@ -44,8 +47,10 @@ export class Coin extends Phaser.GameObjects.Image {
     update(): void {}
 
     public changePosition(): void {
-        this.setNewPosition();
         this.setFieldSide();
+        this.setNewPosition();
+        this.setNewTween();
+        this.setNewParticles();
 
         if (this.changePositionTimer)
             this.changePositionTimer.reset({
@@ -57,7 +62,7 @@ export class Coin extends Phaser.GameObjects.Image {
     }
 
     private setNewPosition(): void {
-        if (this.centerOfScreen && this.lastPosition == "right") {
+        if (this.centerOfScreen && this.isChangePosition) {
             this.x = Phaser.Math.RND.integerInRange(100, this.centerOfScreen);
         } else {
             this.x = Phaser.Math.RND.integerInRange(385, 700);
@@ -66,10 +71,39 @@ export class Coin extends Phaser.GameObjects.Image {
     }
 
     private setFieldSide(): void {
-        if (this.centerOfScreen && this.x <= this.centerOfScreen) {
-            this.lastPosition = "left";
-        } else {
-            this.lastPosition = "right";
+        this.isChangePosition = !this.isChangePosition;
+    }
+
+    private setNewTween(): void {
+        if (this.tween) {
+            this.tween.stop();
         }
+
+        this.tween = this.scene.add.tween({
+            targets: this,
+            x: this.isChangePosition ? 700 : 100,
+            ease: "Power1",
+            duration: 2000,
+            flipX: true,
+            yoyo: true,
+            repeat: -1
+        });
+    }
+
+    private setNewParticles(): void {
+        if (this.particles) {
+            this.particles.remove();
+        }
+
+        this.particles = this.scene.add.particles("flares").createEmitter({
+            frame: 4,
+            x: this.x,
+            y: this.y,
+            lifespan: 4000,
+            scale: 0.5,
+            blendMode: "ADD",
+            frequency: 200
+        });
+        this.particles.startFollow(this);
     }
 }

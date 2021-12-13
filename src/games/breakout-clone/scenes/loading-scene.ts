@@ -1,6 +1,7 @@
+import Phaser from "phaser";
 import BreakoutFont from "../../../assets/fonts/breakout-clone/breakoutfont.fnt";
 import BreakoutFontImage from "../../../assets/fonts/breakout-clone/breakoutfont.png";
-
+import FlaresImage from "../../../assets/particles/flares.png";
 export class LoadingScene extends Phaser.Scene {
     constructor() {
         super({
@@ -48,6 +49,10 @@ export class LoadingScene extends Phaser.Scene {
         );
 
         this.load.bitmapFont("breakoutFont", BreakoutFontImage, BreakoutFont);
+        this.load.spritesheet("flares", FlaresImage, {
+            frameWidth: 128,
+            frameHeight: 128
+        });
     }
 
     update(): void {

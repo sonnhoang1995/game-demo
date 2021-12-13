@@ -1,6 +1,7 @@
 import BackgroundImage from "../../../assets/images/coin-runner-clone/background.png";
 import CoinImage from "../../../assets/images/coin-runner-clone/coin.png";
 import PlayerImage from "../../../assets/images/coin-runner-clone/player.png";
+import FlaresImage from "../../../assets/particles/flares.png";
 import { Coin } from "../objects/coin";
 import { Player } from "../objects/player";
 
@@ -21,6 +22,10 @@ export class PlayScene extends Phaser.Scene {
         this.load.image("background", BackgroundImage);
         this.load.image("player", PlayerImage);
         this.load.image("coin", CoinImage);
+        this.load.spritesheet("flares", FlaresImage, {
+            frameWidth: 128,
+            frameHeight: 128
+        });
     }
 
     init(): void {

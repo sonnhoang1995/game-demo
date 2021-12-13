@@ -1,3 +1,4 @@
+import Phaser from "phaser";
 import { CONST } from "../const/const";
 import { Ball } from "../objects/ball";
 import { Brick } from "../objects/brick";
@@ -142,7 +143,7 @@ export class PlayScene extends Phaser.Scene {
     }
 
     private ballBrickCollision(ball: Ball, brick: Brick): void {
-        brick.destroy();
+        brick.onHitByBall();
         CONST.score += 10;
         this.events.emit("scoreChanged");
 
