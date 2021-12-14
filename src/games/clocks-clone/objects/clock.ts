@@ -74,4 +74,15 @@ export class Clock extends Phaser.GameObjects.Sprite {
         this.hand.destroy();
         this.destroy();
     }
+
+    public onHitByBall(): void {
+        this.scene.add.tween({
+            targets: [this, this.face, this.hand],
+            scaleX: 0.6,
+            scaleY: 0.6,
+            ease: "easeInOut",
+            duration: 150,
+            yoyo: true
+        });
+    }
 }

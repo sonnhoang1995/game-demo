@@ -1,10 +1,9 @@
 // import { AlphaAdjustGameConfig } from "./games/alpha-adjust-clone/config";
 // import { AsteroidGameConfig } from "./games/asteroids-clone/config";
-// import { BlockadeGameConfig } from "./games/blockade-clone/config";
 // import { BlocksGameConfig } from "./games/blocks-clone/config";
 import { BreakoutGameConfig } from "./games/breakout-clone/config";
 // import { CandyCrushGameConfig } from "./games/candy-crush-clone/config";
-// import { ClocksGameConfig } from "./games/clocks-clone/config";
+import { ClocksGameConfig } from "./games/clocks-clone/config";
 import { CoinRunnerGameConfig } from "./games/coin-runner-clone/config";
 // import { EndlessRunnerGameConfig } from "./games/endless-runner-clone/config";
 // import { MarioGameConfig } from "./games/mario-clone/config";
@@ -23,10 +22,13 @@ let gameConfigs = [
         value: BreakoutGameConfig
     },
     // CandyCrushGameConfig,
-    // ClocksGameConfig,
     {
         name: "coinrunner",
         value: CoinRunnerGameConfig
+    },
+    {
+        name: "clocks",
+        value: ClocksGameConfig
     }
     // EndlessRunnerGameConfig,
     // FlappyBirdGameConfig,

@@ -1,6 +1,7 @@
 import BallImage from "../../../assets/images/clocks-clone/ball.png";
 import BigClockFaceImage from "../../../assets/images/clocks-clone/bigclockface.png";
 import SmallClockFaceImage from "../../../assets/images/clocks-clone/smallclockface.png";
+import FlaresImage from "../../../assets/particles/flares.png";
 import BigClockImage from "../../../assets/sprites/clocks-clone/bigclock.png";
 import BigHandImage from "../../../assets/sprites/clocks-clone/bighand.png";
 import SmallClockImage from "../../../assets/sprites/clocks-clone/smallclock.png";
@@ -71,6 +72,11 @@ export class LoadingScene extends Phaser.Scene {
         this.load.spritesheet("smallhand", SmallHandImage, {
             frameWidth: 70,
             frameHeight: 70
+        });
+
+        this.load.spritesheet("flares", FlaresImage, {
+            frameWidth: 128,
+            frameHeight: 128
         });
     }
 

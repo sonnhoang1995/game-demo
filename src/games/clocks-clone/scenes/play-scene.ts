@@ -116,6 +116,7 @@ export class PlayScene extends Phaser.Scene {
 
     private throwBall(): void {
         if (this.canFire && this.ball && this.activeClock) {
+            this.ball.initParticles();
             this.canFire = false;
 
             this.ball.setPosition(this.activeClock.x, this.activeClock.y);
@@ -139,9 +140,11 @@ export class PlayScene extends Phaser.Scene {
         if (!this.canFire && this.ball) {
             clock.setActiveAppearance();
             this.activeClock = clock;
+            this.activeClock.onHitByBall();
             this.ball.setVisible(false);
             (this.ball.body as Phaser.Physics.Arcade.Body).setVelocity(0, 0);
             this.clocksReached++;
+            this.ball.removeParticles();
 
             if (this.clocksReached < this.numberClocks) {
                 this.canFire = true;

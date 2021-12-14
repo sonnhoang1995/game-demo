@@ -25,7 +25,6 @@ export class Ball extends Phaser.GameObjects.Rectangle {
 
         this.initRectangle();
         this.initPhysics();
-        this.initParticles();
         this.scene.add.existing(this);
     }
 
@@ -42,7 +41,8 @@ export class Ball extends Phaser.GameObjects.Rectangle {
         (this.body as Phaser.Physics.Arcade.Body).setCollideWorldBounds();
     }
 
-    private initParticles(): void {
+    public initParticles(): void {
+        if(this.particles) this.particles.remove();
         this.particles = this.scene.add.particles("flares").createEmitter({
             frame: 0,
             x: this.x,

@@ -119,6 +119,7 @@ export class PlayScene extends Phaser.Scene {
                 this.ball.setPosition(this.player.x, this.player.y - 200);
                 this.ball.applyInitVelocity();
                 this.ball.setVisible(true);
+                this.ball.initParticles();
             }
 
             if (this.ball.y > this.game.config.height) {
