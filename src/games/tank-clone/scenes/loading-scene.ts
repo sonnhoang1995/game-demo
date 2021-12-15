@@ -13,6 +13,7 @@ import BarrelBluePng from "../assets/sprites/barrel-blue.png";
 import BarrelRedPng from "../assets/sprites/barrel-red.png";
 import BulletBluePng from "../assets/sprites/bullet-blue.png";
 import BulletRedPng from "../assets/sprites/bullet-red.png";
+import PauseButtonPng from "../assets/sprites/pause-button.png";
 import TankBluePng from "../assets/sprites/tank-blue.png";
 import TankRedPng from "../assets/sprites/tank-red.png";
 import TilesPng from "../assets/tiles/tiles.png";
@@ -86,6 +87,7 @@ export class LoadingScene extends Phaser.Scene {
         this.load.image("treeLarge", TreeLargePng);
         this.load.audio("tankShoot", TankShootSound);
         this.load.audio("tankHit", TankHitSound);
+        this.load.image("pauseButton", PauseButtonPng);
     }
 
     update(): void {

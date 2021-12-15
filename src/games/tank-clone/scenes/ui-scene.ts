@@ -17,21 +17,14 @@ export class UIScene extends Phaser.Scene {
         let width = this.sys.canvas.width;
         let height = this.sys.canvas.height;
 
-        let popup = this.add.rectangle(
-            width / 2,
-            height / 2,
-            width / 2,
-            height / 2,
-            0x808080
-        );
-        popup.setAlpha(0.5);
+        let background = this.add.rectangle(0, 0, width / 2, height / 2, 0x808080);
+        background.setAlpha(0.5);
 
-        let gamePausedText = this.add.text(0, 0, "Game Paused!!!", {
+        let gamePausedText = this.add.text(0, -200, "Game Paused!!!", {
             font: "56px monospace",
             color: "#ffffff"
         });
         gamePausedText.setOrigin(0.5, 0.5);
-        Phaser.Display.Align.In.TopCenter(gamePausedText, popup, 0, -40);
 
         let soundButton = this.add
             .rectangle(
@@ -43,7 +36,6 @@ export class UIScene extends Phaser.Scene {
             )
             .setInteractive({ cursor: "pointer" });
         soundButton.setOrigin(0.5, 0.5);
-        Phaser.Display.Align.In.Center(soundButton, popup);
 
         let soundButtonText = this.add.text(
             width / 2,
@@ -70,10 +62,9 @@ export class UIScene extends Phaser.Scene {
         });
 
         let resumeButton = this.add
-            .rectangle(0, 0, 240, 80, 0xaa0000)
+            .rectangle(0, 200, 240, 80, 0xaa0000)
             .setInteractive({ cursor: "pointer" });
         resumeButton.setOrigin(0.5, 0.5);
-        Phaser.Display.Align.In.BottomCenter(resumeButton, popup, 0, -40);
 
         resumeButton.on("pointerdown", () => {
             this.scene.setActive(false);
@@ -81,11 +72,20 @@ export class UIScene extends Phaser.Scene {
             this.scene.resume("PlayScene");
         });
 
-        let playText = this.add.text(width / 2, height / 2, "Resume", {
+        let resumeText = this.add.text(width / 2, height / 2, "Resume", {
             font: "28px monospace",
             color: "#ffffff"
         });
-        playText.setOrigin(0.5, 0.5);
-        Phaser.Display.Align.In.Center(playText, resumeButton);
+        resumeText.setOrigin(0.5, 0.5);
+        Phaser.Display.Align.In.Center(resumeText, resumeButton);
+
+        let container = this.add.container(width / 2, height / 2, [
+            background,
+            gamePausedText,
+            soundButton,
+            soundButtonText,
+            resumeButton,
+            resumeText
+        ]);
     }
 }

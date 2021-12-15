@@ -56,6 +56,7 @@ export class PlayScene extends Phaser.Scene {
         });
         this.convertObjects();
         this.createScoreText();
+        this.createPauseButton();
 
         // collider layer and obstacles
         this.physics.add.collider(this.player, this.layer);
@@ -236,7 +237,7 @@ export class PlayScene extends Phaser.Scene {
     }
 
     private createGameOverPopup(): void {
-        console.log("gameOver")
+        console.log("gameOver");
         this.registry.set(
             "hiScore",
             this.checkHighScore(
@@ -315,5 +316,23 @@ export class PlayScene extends Phaser.Scene {
 
     private checkHighScore(newScore: number, currentHighScore: number): number {
         return newScore > currentHighScore ? newScore : currentHighScore;
+    }
+
+    private createPauseButton(): void {
+        let pauseButton = this.add
+            .image(50, 50, "pauseButton")
+            .setInteractive({ cursor: "pointer" });
+        pauseButton.setScale(0.3, 0.3);
+        pauseButton.setScrollFactor(0);
+        pauseButton.on("pointerover", () => {
+            pauseButton.setScale(0.35, 0.35);
+        });
+        pauseButton.on("pointerout", () => {
+            pauseButton.setScale(0.3, 0.3);
+        });
+        pauseButton.on("pointerdown", () => {
+            this.scene.pause();
+            this.scene.launch("UIScene");
+        });
     }
 }
